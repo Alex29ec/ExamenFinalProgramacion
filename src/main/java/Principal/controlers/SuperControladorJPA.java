@@ -7,7 +7,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import bankonterSupervitaminado.model.Entidad;
+import Principal.model.Entidad;
+import Principal.model.Socio;
+
 
 
 public class SuperControladorJPA {
@@ -32,7 +34,7 @@ public class SuperControladorJPA {
 	 */
 	protected EntityManager getEntityManager () {
 		if (em == null) {
-			em = Persistence.createEntityManagerFactory("bankonterSupervitaminado")
+			em = Persistence.createEntityManagerFactory("ExamenFinalProgramacion")
 				.createEntityManager();
 		}
 		return em;
@@ -138,6 +140,59 @@ public class SuperControladorJPA {
 		return null;
 	}
 	
+	public List<Socio> findByEquipoPorNombre (int IdEquipo) {
+		try {
+			Query q = em.createNativeQuery("SELECT * FROM socio where idEquipo="+IdEquipo+" order by nombre desc;", Socio.class);
+			List<Socio> socios = (List<Socio>) q.getResultList();
+			return socios;
+		}
+		catch (NoResultException nex) {
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<Socio> findByEquipoPor1Apellido (int IdEquipo) {
+		try {
+			Query q = em.createNativeQuery("SELECT * FROM socio where idEquipo="+IdEquipo+" order by apellido1 desc;", Socio.class);
+			List<Socio> socios = (List<Socio>) q.getResultList();
+			return socios;
+		}
+		catch (NoResultException nex) {
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public List<Socio> findByEquipoPor2Apellido (int IdEquipo) {
+		try {
+			Query q = em.createNativeQuery("SELECT * FROM socio where idEquipo="+IdEquipo+" order by apellido2 desc;", Socio.class);
+			List<Socio> socios = (List<Socio>) q.getResultList();
+			return socios;
+		}
+		catch (NoResultException nex) {
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public List<Socio> findByEquipoPorFecha (int IdEquipo) {
+		try {
+			Query q = em.createNativeQuery("SELECT * FROM socio where idEquipo="+IdEquipo+" order by fechaNacimiento desc;", Socio.class);
+			List<Socio> socios = (List<Socio>) q.getResultList();
+			return socios;
+		}
+		catch (NoResultException nex) {
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 	
 	/**
 	 * 
